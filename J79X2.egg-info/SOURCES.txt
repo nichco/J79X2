@@ -1,0 +1,10 @@
+README.md
+setup.py
+J79X2/__init__.py
+J79X2/data_fit.py
+J79X2/j79x2.py
+J79X2.egg-info/PKG-INFO
+J79X2.egg-info/SOURCES.txt
+J79X2.egg-info/dependency_links.txt
+J79X2.egg-info/requires.txt
+J79X2.egg-info/top_level.txt

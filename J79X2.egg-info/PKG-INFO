@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: J79X2
+Version: 0.0.0
+Author: Nicholas Orndorff
+Author-email: norndorff@ucsd.edu
+Platform: any
+Requires-Python: >=3.7
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: gitpython
+Requires-Dist: setuptools
