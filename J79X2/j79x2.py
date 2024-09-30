@@ -39,7 +39,7 @@ class Engine(csdl.CustomExplicitOperation):
         outputs.max_thrust = max_thrust
         # outputs.temperature = temperature
 
-        return outputs
+        return max_thrust
     
     def compute(self, input_vals, output_vals):
         altitude = input_vals['altitude']
@@ -82,8 +82,8 @@ if __name__ == '__main__':
     mach = csdl.Variable(value=0.2)
 
     eng = Engine()
-    outputs = eng.evaluate(altitude, mach)
-    max_thrust = outputs.max_thrust # klbf
+    max_thrust = eng.evaluate(altitude, mach)
+    # max_thrust = outputs.max_thrust # klbf
 
     recorder.stop()
 
