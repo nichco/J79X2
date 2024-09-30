@@ -35,9 +35,8 @@ class Engine(csdl.CustomExplicitOperation):
         max_thrust = self.create_output('max_thrust', altitude.shape)
 
         # construct output of the model
-        outputs = csdl.VariableGroup()
-        outputs.max_thrust = max_thrust
-        # outputs.temperature = temperature
+        # outputs = csdl.VariableGroup()
+        # outputs.max_thrust = max_thrust
 
         return max_thrust
     
@@ -45,10 +44,9 @@ class Engine(csdl.CustomExplicitOperation):
         altitude = input_vals['altitude']
         mach = input_vals['mach']
 
-        # output_vals['max_thrust'] = self.func(altitude, mach)
-        max_thrust = np.zeros(altitude.shape)
+        max_thrust = np.zeros((altitude.shape[0]))
         for i in range(len(altitude)):
-            max_thrust = self.func(altitude[i], mach[i])
+            max_thrust[i] = self.func(altitude[i], mach[i]).item()
 
         output_vals['max_thrust'] = max_thrust
 
@@ -60,8 +58,8 @@ class Engine(csdl.CustomExplicitOperation):
         dy = np.zeros(altitude.shape)
 
         for i in range(len(altitude)):
-            dx[i] = self.dx(altitude[i], mach[i])
-            dy[i] = self.dy(altitude[i], mach[i])
+            dx[i] = self.dx(altitude[i], mach[i]).item()
+            dy[i] = self.dy(altitude[i], mach[i]).item()
 
         derivatives['max_thrust', 'altitude'] = np.diag(dx)
         derivatives['max_thrust', 'mach'] = np.diag(dy)
@@ -78,12 +76,15 @@ if __name__ == '__main__':
     recorder = csdl.Recorder(inline=True)
     recorder.start()
 
-    altitude = csdl.Variable(value=30000*1E-3) # kft
-    mach = csdl.Variable(value=0.2)
+    # altitude = csdl.Variable(value=30000*1E-3) # kft
+    altitude = csdl.Variable(value=np.linspace(100, 20000, 10) * 3.2808399 * 1E-3)
+    # mach = csdl.Variable(value=0.2)
+    mach = csdl.Variable(value=np.linspace(0.5, 0.7, 10))
 
     eng = Engine()
     max_thrust = eng.evaluate(altitude, mach)
     # max_thrust = outputs.max_thrust # klbf
+    print(max_thrust.value)
 
     recorder.stop()
 
