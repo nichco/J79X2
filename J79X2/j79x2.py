@@ -9,7 +9,7 @@ import pkg_resources
 
 
 
-# custom atmosphere model
+# custom j79 engine model
 class Engine(csdl.CustomExplicitOperation):
 
     def __init__(self):
