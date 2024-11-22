@@ -10,7 +10,6 @@ import pkg_resources
 
 
 # custom j79 engine model
-# custom engine model
 class Engine(csdl.CustomExplicitOperation):
 
     def __init__(self):
